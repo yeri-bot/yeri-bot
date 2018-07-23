@@ -35,9 +35,11 @@ class Yeri {
         .then(() => {
             this.loadModules();
             this.discord.user.setActivity('Node.js ' + process.version, 'LISTENING');
-            this.discord.on('message', (msg) => {
-                console.log(msg.content);
-                this.cmdMgr.handleMessage(msg);
+            this.discord.on('message', (message) => {
+                if (message.author.bot) return;
+
+                console.log(message.content);
+                this.cmdMgr.handleMessage(message);
             });
         });
     }

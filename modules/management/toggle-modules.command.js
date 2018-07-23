@@ -1,10 +1,10 @@
 const Command = require('../../lib/command');
 const Permissions = require('../../lib/permissions');
 
-module.exports = new Command('modul', Permissions.OPERATOR, 1, function(res, params, sender, msg, channel) {
+module.exports = new Command('modul', Permissions.OPERATOR, 1, function(yeri, res, params, sender, msg, channel) {
     let moduleName = params[0].toLowerCase();
 
-    if (!this.cmdMgr.modules.has(moduleName)) {
+    if (!yeri.cmdMgr.modules.has(moduleName)) {
         res.content.setColor(Command.ERROR)
             .setTitle('Błąd')
             .setDescription('Moduł o tej nazwie nie istnieje.');
@@ -12,7 +12,7 @@ module.exports = new Command('modul', Permissions.OPERATOR, 1, function(res, par
         return;
     }
 
-    let module = this.cmdMgr.modules.get(moduleName);
+    let module = yeri.cmdMgr.modules.get(moduleName);
     
     res.content.setColor(Command.OK)
         .setTitle('Sukces');

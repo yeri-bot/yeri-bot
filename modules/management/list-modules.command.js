@@ -2,12 +2,12 @@ const Command = require('../../lib/command');
 const Permissions = require('../../lib/permissions');
 const indicator = require('../../helpers/indicator');
 
-module.exports = new Command('moduly', Permissions.EVERYONE, 0, function(res, params, sender, msg, channel) {
+module.exports = new Command('moduly', Permissions.EVERYONE, 0, function(yeri, res, params, sender, msg, channel) {
     let modules = [];
-    let modulesCount = this.cmdMgr.modules.size;
+    let modulesCount = yeri.cmdMgr.modules.size;
     let activeModulesCount = 0;
 
-    this.cmdMgr.modules.forEach((module) => {
+    yeri.cmdMgr.modules.forEach((module) => {
         if (module.options.enabled) {
             modules.push(`**${module.name}**`);
             activeModulesCount++;
