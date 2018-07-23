@@ -1,0 +1,21 @@
+{
+  "name": "yeri-bot",
+  "version": "4.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeri-bot/yeri-bot.git"
+  },
+  "author": "Kwon (github: yeri-bot)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeri-bot/yeri-bot/issues"
+  },
+  "homepage": "https://github.com/yeri-bot/yeri-bot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "mongodb": "^3.1.1"
+  }
+}
