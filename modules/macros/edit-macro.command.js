@@ -25,10 +25,19 @@ module.exports = new Command(/^makro (zmien$|zmien ).*/, Permissions.EVERYONE, u
         return;
     }
 
-    this.macros.get(macroName).content = macroContent;
+    yeri.db.setMacro(macroName, macroContent)
+    .then(() => {
+        this.macros.get(macroName).content = macroContent;
 
-    res.content.setColor(Command.OK)
-        .setTitle('Sukces')
-        .setDescription(`Pomyślnie zmieniono zawartość makra.`);
-    res.end();
+        res.content.setColor(Command.OK)
+            .setTitle('Sukces')
+            .setDescription(`Pomyślnie zmieniono zawartość makra.`);
+        res.end();
+    })
+    .catch(() => {
+        res.content.setColor(Command.ERROR)
+            .setTitle('Błąd')
+            .setDescription(`Wystąpił nieoczekiwany błąd podczas edytowania makra.`);
+        res.end();
+    });
 }, true, true);

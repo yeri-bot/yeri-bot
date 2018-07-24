@@ -22,14 +22,23 @@ module.exports = new Command(/^makro (?!zmien$|zmien |usun$|usun ).*/, Permissio
         return;
     }
 
-    this.macros.set(macroName, {
-        name: macroName,
-        content: macroContent,
-        author: author.id
+    yeri.db.addMacro(macroName, macroContent, author.id)
+    .then(() => {
+        this.macros.set(macroName, {
+            name: macroName,
+            content: macroContent,
+            author: author.id
+        });
+        
+        res.content.setColor(Command.OK)
+            .setTitle('Sukces')
+            .setDescription(`Pomyślnie dodano makro o nazwie **${macroName}**.`);
+        res.end();
+    })
+    .catch(() => {
+        res.content.setColor(Command.ERROR)
+            .setTitle('Błąd')
+            .setDescription(`Wystąpił nieoczekiwany błąd podczas dodawania makra.`);
+        res.end();
     });
-
-    res.content.setColor(Command.OK)
-        .setTitle('Sukces')
-        .setDescription(`Pomyślnie dodano makro o nazwie **${macroName}**.`);
-    res.end();
 }, true, true);

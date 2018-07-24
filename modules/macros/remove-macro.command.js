@@ -22,10 +22,19 @@ module.exports = new Command(/^makro (usun$|usun ).*/, Permissions.EVERYONE, 2, 
         return;
     }
 
-    this.macros.delete(macroName);
+    yeri.db.removeMacro(macroName)
+    .then(() => {
+        this.macros.delete(macroName);
 
-    res.content.setColor(Command.OK)
-        .setTitle('Sukces')
-        .setDescription(`Pomyślnie usunięto makro.`);
-    res.end();
+        res.content.setColor(Command.OK)
+            .setTitle('Sukces')
+            .setDescription(`Pomyślnie usunięto makro.`);
+        res.end();
+    })
+    .catch(() => {
+        res.content.setColor(Command.ERROR)
+            .setTitle('Błąd')
+            .setDescription(`Wystąpił nieoczekiwany błąd podczas usuwania makra.`);
+        res.end();
+    });
 }, true, true);
