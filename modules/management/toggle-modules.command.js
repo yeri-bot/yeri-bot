@@ -1,7 +1,7 @@
 const Command = require('../../lib/command');
 const Permissions = require('../../lib/permissions');
 
-module.exports = new Command('modul', Permissions.OPERATOR, 1, function(yeri, res, params, sender, msg, channel) {
+module.exports = new Command('modul', Permissions.OPERATOR, 1, function(yeri, res, req, params, author, channel, guild) {
     let moduleName = params[0].toLowerCase();
 
     if (!yeri.cmdMgr.modules.has(moduleName)) {

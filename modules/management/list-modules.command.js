@@ -2,7 +2,7 @@ const Command = require('../../lib/command');
 const Permissions = require('../../lib/permissions');
 const indicator = require('../../helpers/indicator');
 
-module.exports = new Command('moduly', Permissions.EVERYONE, 0, function(yeri, res, params, sender, msg, channel) {
+module.exports = new Command('moduly', Permissions.EVERYONE, 0, function(yeri, res, req, params, author, channel, guild) {
     let modules = [];
     let modulesCount = yeri.cmdMgr.modules.size;
     let activeModulesCount = 0;
@@ -18,7 +18,7 @@ module.exports = new Command('moduly', Permissions.EVERYONE, 0, function(yeri, r
     });
 
     res.content.setColor(Command.INFO)
-        .setTitle('Moduły ' + indicator(activeModulesCount, modulesCount))
+        .setTitle(indicator('Moduły', activeModulesCount, modulesCount))
         .setDescription(modules.join(' '));
     res.end();
 });

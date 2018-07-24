@@ -2,7 +2,7 @@ const Command = require('../../lib/command');
 const Permissions = require('../../lib/permissions');
 const DiscordHelper = require('../../helpers/discord-helper');
 
-module.exports = new Command('op', Permissions.OWNER, 1, function(yeri, res, params, msg, author, channel, guild) {
+module.exports = new Command('op', Permissions.OWNER, 1, function(yeri, res, req, params, author, channel, guild) {
     let userId = DiscordHelper.getUserIdFromMention(params[0]);
 
     if (!userId) {

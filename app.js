@@ -1,7 +1,7 @@
 const Yeri = require('./yeri');
 
 new Yeri({
-    version: '4.0.0',
+    version: '4.0.2',
     discord: {
         ownerId: '*****************',
         token: '*******.***.****************',
@@ -18,6 +18,9 @@ new Yeri({
             enabled: true
         },
         'utils': {
+            enabled: true
+        },
+        'macros': {
             enabled: true
         }
     }
