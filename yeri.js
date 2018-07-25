@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const Discord = require('discord.js');
 const DbController = require('./lib/db-controller');
@@ -12,7 +11,10 @@ class Yeri {
         this.discord = new Discord.Client();
         this.db = new DbController();
         this.cmdMgr = new CommandManager(this);
-        this.cmdMgr.prefix = '--';
+        
+        if (options.discord.prefixes instanceof Array) {
+            this.cmdMgr.prefixes = options.discord.prefixes;
+        }
     }
 
     connect() {

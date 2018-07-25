@@ -11,7 +11,7 @@ module.exports = new Command(/^makro (?!zmien$|zmien |usun$|usun ).*/, Permissio
             res.content.setColor(Command.ERROR)
                 .setTitle('Błąd')
                 .setDescription(`Makro o tej nazwie już istnieje.\n` +
-                    `Aby zmienić zawartość użyj komendy **${yeri.cmdMgr.prefix}makro zmien**`);
+                    `Aby zmienić zawartość użyj komendy **${yeri.cmdMgr.prefixes[0]}makro zmien**`);
         }
         else {
             res.content.setColor(Command.ERROR)

@@ -5,6 +5,7 @@ Zapewnia on dostarczanie na serwer Discord treści postów oraz mediów z serwis
 
 ## Konfiguracja pliku `app.js`
 - **version** - wyświetlana wersja bota
+- **discord.prefixes** - tablica z prefiksami dla komend
 - **discord.ownerId** - ID profilu na Discordzie właściciela bota
 - **discord.token** - token otrzymywany po rejestracji bota na stronie Discorda
 - **discord.maknaeToken** - token używany w wersji testowej środowiska
