@@ -1,7 +1,7 @@
 const Yeri = require('./yeri');
 
 new Yeri({
-    version: '4.0.4',
+    version: '4.0.5',
     discord: {
         prefixes: ['--', '\u2014'],
         ownerId: '*****************',
@@ -23,6 +23,11 @@ new Yeri({
         },
         'macros': {
             enabled: true
+        },
+        'wykop': {
+            enabled: true,
+            appKey: '**********',
+            secretKey: '**********'
         }
     }
 }).start();

@@ -17,7 +17,7 @@ module.exports = new Command(/^makro (zmien$|zmien ).*/, Permissions.EVERYONE, u
 
     let isOp = (yeri.cmdMgr.permissionsMgr.getUserPermission(guild.id, author.id) >= Permissions.OPERATOR);
 
-    if (author.id != this.macros.get(macroName).author || !isOp) {
+    if (author.id != this.macros.get(macroName).author && !isOp) {
         res.content.setColor(Command.ERROR)
             .setTitle('Błąd')
             .setDescription('Nie jesteś właścicielem tego makra.');
