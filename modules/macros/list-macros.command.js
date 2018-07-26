@@ -30,7 +30,7 @@ module.exports = new Command('makra', Permissions.EVERYONE, [0, 1], function(yer
         part.content.setColor(Command.INFO)
             .setTitle(authorName)
             .setDescription(macroNames.join(' '))
-            .setFooter(macroNames.length + numeral(macroNames.length, 'makro', 'makra', 'makr'));
+            .setFooter(macroNames.length + ' ' + numeral(macroNames.length, 'makro', 'makra', 'makr'));
     });
 
     res.end();
