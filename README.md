@@ -15,6 +15,8 @@ Zapewnia on dostarczanie na serwer Discord treści postów oraz mediów z serwis
 - **mongodb.password** - hasło bazy danych MongoDB
 - **modules** - moduły
 - **modules.\*.enabled** - moduł aktywny (`true`), moduł nieaktywny (`false`)
+- **modules.wykop.appKey** - wartość appkey z API Wykopu
+- **modules.wykop.secretKey** - wartość secretkey z API Wykopu
 
 ## Środowisko testowe
 Środowisko testowe uruchamiane jest przez dodanie do linii poleceń parametru `--maknae`, np.

@@ -1,11 +1,11 @@
 module.exports = function(text) {
     let parser = /#([a-z0-9]+)/ig;
     let tag;
-    let tags = [];
+    let tags = new Set();
 
     while (tag = parser.exec(text)) {
-        tags.push(tag[1]);
+        tags.add(tag[1]);
     }
 
-    return tags;
+    return Array.from(tags);
 };

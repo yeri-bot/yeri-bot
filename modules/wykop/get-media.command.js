@@ -4,6 +4,7 @@ const Regex = require('../../helpers/regex');
 const numeral = require('../../helpers/numeral');
 const extractTags = require('../../helpers/extract-tags');
 const timeAgo = require('../../helpers/time-ago');
+const moment = require('moment-timezone');
 
 let commandPattern = /^((now[aey]|najnowsz[aey]) )?#([a-z0-9]+)( (z|nie|bez)( #[a-z0-9]+)+)?( (z|nie|bez)( #[a-z0-9]+)+)?$/i;
 
@@ -55,7 +56,7 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
         let entry = (newest ? entries[0] : entries[Math.floor(Math.random() * entries.length)]);
 
         let votes = (entry.vote_count ? entry.vote_count + ' ' + numeral(entry.vote_count, 'plus', 'plusy', 'plusów') : 'Brak plusów');
-        let time = timeAgo(Date.now() - new Date(entry.date).getTime());
+        let time = timeAgo(moment().diff(moment.tz(entry.date, 'Europe/Warsaw')));
         let title = '';
 
         entry.tags.map((tag) => '#' + tag).forEach((tag, index) => {
