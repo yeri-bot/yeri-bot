@@ -1,5 +1,6 @@
 const path = require('path');
 const Discord = require('discord.js');
+const moment = require('moment');
 const DbController = require('./lib/db-controller');
 const CommandManager = require('./lib/command-manager');
 
@@ -11,7 +12,8 @@ class Yeri {
         this.discord = new Discord.Client();
         this.db = new DbController();
         this.cmdMgr = new CommandManager(this);
-        
+        this.startTime = moment();
+
         if (options.discord.prefixes instanceof Array) {
             this.cmdMgr.prefixes = options.discord.prefixes;
         }
