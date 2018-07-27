@@ -11,11 +11,12 @@ class MacrosModule extends Module {
         db.getMacros()
         .then((macros) => {
             macros.forEach((macro) => {
-                this.macros.set(macro.name, macro);
+                if (!this.macros.has(macro.guild)) this.macros.set(macro.guild, new Map());
+                this.macros.get(macro.guild).set(macro.name, macro);
             });
         })
         .catch((reason) => {
-            console.log('[ERROR]', 'Nie można zsynchronizować z bazą danych.');
+            console.log('[ERROR]', 'Podczas synchronizacji z bazą danych wystąpił błąd.');
             console.log(reason);
         });
     }

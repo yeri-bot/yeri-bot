@@ -6,8 +6,8 @@ module.exports = new Command(/^makro (?!zmien$|zmien |usun$|usun ).*/, Permissio
     params.shift();
     let macroContent = params.join(' ');
 
-    if (this.macros.has(macroName)) {
-        if (author.id == this.macros.get(macroName).author) {
+    if (this.macros.has(guild.id) && this.macros.get(guild.id).has(macroName)) {
+        if (author.id == this.macros.get(guild.id).get(macroName).author) {
             res.content.setColor(Command.ERROR)
                 .setTitle('Błąd')
                 .setDescription(`Makro o tej nazwie już istnieje.\n` +
@@ -22,12 +22,15 @@ module.exports = new Command(/^makro (?!zmien$|zmien |usun$|usun ).*/, Permissio
         return;
     }
 
-    yeri.db.addMacro(macroName, macroContent, author.id)
+    yeri.db.addMacro(macroName, macroContent, author.id, guild.id)
     .then(() => {
-        this.macros.set(macroName, {
+        if (!this.macros.has(guild.id)) this.macros.set(guild.id, new Map());
+
+        this.macros.get(guild.id).set(macroName, {
             name: macroName,
             content: macroContent,
-            author: author.id
+            author: author.id,
+            guild: guild.id
         });
         
         res.content.setColor(Command.OK)
