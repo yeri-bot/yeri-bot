@@ -9,8 +9,8 @@ module.exports = new Command('serwer', Permissions.EVERYONE, 0, function(yeri, r
         .setDescription(
             `Nazwa serwera: ${guild.name}\n` +
             `Użytkownicy: ${guild.memberCount}\n` +
-            `Data utworzenia: ${moment(guild.createdAt).format('HH:mm:ss DD.MM.YYYY')}\n` +
-            `Data dołączenia: ${moment(guild.joinedAt).format('HH:mm:ss DD.MM.YYYY')}`
+            `Data utworzenia: ${moment(guild.createdAt).tz('Europe/Warsaw').format('HH:mm:ss DD.MM.YYYY')}\n` +
+            `Data dołączenia: ${moment(guild.joinedAt).tz('Europe/Warsaw').format('HH:mm:ss DD.MM.YYYY')}`
         );
     res.end();
 });

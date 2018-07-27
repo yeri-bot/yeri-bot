@@ -38,6 +38,8 @@ class Yeri {
         this.connect()
         .then(() => {
             this.loadModules();
+            this.cmdMgr.permissionsMgr.sync(this.db);
+            
             this.discord.user.setActivity('Node.js ' + process.version, 'LISTENING');
             this.discord.on('message', (message) => {
                 if (message.author.bot) return;
