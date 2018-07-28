@@ -30,14 +30,6 @@ module.exports = new Command(/^modul .+ glob(al)?$/i, Permissions.BOT_OWNER, 2, 
         });
     }
     else {
-        if (yeri.cmdMgr.modulesMgr.getModuleOptionState(moduleName) == false) {
-            res.content.setColor(Command.ERROR)
-                .setTitle('Błąd')
-                .setDescription('Moduł nie mógł zostać aktywowany, gdyż został dezaktywowany statycznie w opcjach bota.');
-            res.end();
-            return;
-        }
-
         yeri.cmdMgr.modulesMgr.onModule(moduleName)
         .then(() => {
             res.content.setColor(Command.OK)

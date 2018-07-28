@@ -22,3 +22,4 @@ Zapewnia on dostarczanie na serwer Discord treści postów oraz mediów z serwis
 Środowisko testowe uruchamiane jest przez dodanie do linii poleceń parametru `--maknae`, np.
 ```
 node app.js --maknae
+```

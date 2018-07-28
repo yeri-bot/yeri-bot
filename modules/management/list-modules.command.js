@@ -11,7 +11,7 @@ module.exports = new Command('moduly', Permissions.EVERYONE, 0, function(yeri, r
         let globalState = yeri.cmdMgr.modulesMgr.getModuleState(module.name);
         let localState = yeri.cmdMgr.modulesMgr.getModuleState(module.name, guild.id);
 
-        if (localState) {
+        if (localState == true) {
             modules.push(`**${module.name}**`);
             activeModulesCount++;
         }
