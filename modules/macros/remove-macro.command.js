@@ -12,7 +12,7 @@ module.exports = new Command(/^makro (usun$|usun ).*/, Permissions.EVERYONE, 2, 
         return;
     }
 
-    let isOp = (yeri.cmdMgr.permissionsMgr.getUserPermission(guild, author.id) >= Permissions.OPERATOR);
+    let isOp = (yeri.cmdMgr.permissionsMgr.getUserPermission(author.id, guild) >= Permissions.OPERATOR);
 
     if (author.id != this.macros.get(guild.id).get(macroName).author && !isOp) {
         res.content.setColor(Command.ERROR)

@@ -38,8 +38,8 @@ class Yeri {
         this.connect()
         .then(() => {
             this.loadModules();
-            this.cmdMgr.permissionsMgr.sync(this.db);
-            
+            this.cmdMgr.sync();
+
             this.discord.user.setActivity('Node.js ' + process.version, 'LISTENING');
             this.discord.on('message', (message) => {
                 if (message.author.bot) return;
@@ -51,9 +51,14 @@ class Yeri {
     }
 
     loadModules() {
-        for (let moduleName in this.options.modules) {
+        let modules = this.options.modules;
+
+        for (let moduleName in modules) {
+            if (!modules[moduleName].enabled) continue;
+            delete modules[moduleName].enabled;
+
             let modulePath = path.join(__dirname, 'modules', moduleName);
-            this.cmdMgr.addModule(modulePath, this.options.modules[moduleName]);
+            this.cmdMgr.addModule(modulePath, modules[moduleName]);
         }
     }
 }

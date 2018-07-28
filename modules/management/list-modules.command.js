@@ -8,12 +8,20 @@ module.exports = new Command('moduly', Permissions.EVERYONE, 0, function(yeri, r
     let activeModulesCount = 0;
 
     yeri.cmdMgr.modules.forEach((module) => {
-        if (module.options.enabled) {
+        let globalState = yeri.cmdMgr.modulesMgr.getModuleState(module.name);
+        let localState = yeri.cmdMgr.modulesMgr.getModuleState(module.name, guild.id);
+
+        if (localState) {
             modules.push(`**${module.name}**`);
             activeModulesCount++;
         }
         else {
-            modules.push(module.name);
+            if (globalState == false) {
+                modules.push(module.name + '!');
+            }
+            else {
+                modules.push(module.name);
+            }
         }
     });
 

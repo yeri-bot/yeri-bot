@@ -2,7 +2,7 @@ const Command = require('../../lib/command');
 const Permissions = require('../../lib/permissions');
 const DiscordHelper = require('../../helpers/discord-helper');
 
-module.exports = new Command('op', Permissions.SERVER_OWNER, 1, function(yeri, res, req, params, author, channel, guild) {
+module.exports = new Command('op', Permissions.GUILD_OWNER, 1, function(yeri, res, req, params, author, channel, guild) {
     let userId = DiscordHelper.getUserIdFromMention(params[0]);
 
     if (!userId) {
@@ -13,7 +13,7 @@ module.exports = new Command('op', Permissions.SERVER_OWNER, 1, function(yeri, r
         return;
     }
     
-    let permission = yeri.cmdMgr.permissionsMgr.getUserPermission(guild, userId);
+    let permission = yeri.cmdMgr.permissionsMgr.getUserPermission(userId, guild);
     
     if (permission == Permissions.BOT_OWNER) {
         res.content.setColor(Command.ERROR)
@@ -21,14 +21,14 @@ module.exports = new Command('op', Permissions.SERVER_OWNER, 1, function(yeri, r
             .setDescription('Użytkownik o tej nazwie jest właścicielem bota. Nie potrzebuje on roli operatora.');
         res.end();
     }
-    else if (permission == Permissions.SERVER_OWNER) {
+    else if (permission == Permissions.GUILD_OWNER) {
         res.content.setColor(Command.ERROR)
             .setTitle('Błąd')
             .setDescription('Użytkownik o tej nazwie jest właścicielem serwera. Nie potrzebuje on roli operatora.');
         res.end();
     }
     else if (permission == Permissions.OPERATOR) {
-        yeri.cmdMgr.permissionsMgr.removeOperator(guild, userId)
+        yeri.cmdMgr.permissionsMgr.removeOperator(userId, guild)
         .then(() => {
             res.content.setColor(Command.OK)
                 .setTitle('Sukces')
@@ -43,7 +43,7 @@ module.exports = new Command('op', Permissions.SERVER_OWNER, 1, function(yeri, r
         });
     }
     else {
-        yeri.cmdMgr.permissionsMgr.addOperator(guild, userId)
+        yeri.cmdMgr.permissionsMgr.addOperator(userId, guild)
         .then(() => {
             res.content.setColor(Command.OK)
                 .setTitle('Sukces')
