@@ -14,18 +14,18 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
     let newest = !!(reqGroups[2]);
     let includes = [], excludes = [];
 
-    if (/z/i.test(reqGroups[5])) {
+    if (/^z$/i.test(reqGroups[5])) {
         includes = extractTags(reqGroups[4]);
 
-        if (/z/i.test(reqGroups[8])) includes = includes.concat(extractTags(reqGroups[7]));
-        if (/(nie|bez)/i.test(reqGroups[8])) excludes = extractTags(reqGroups[7]);
+        if (/^z$/i.test(reqGroups[8])) includes = includes.concat(extractTags(reqGroups[7]));
+        if (/^(nie|bez)$/i.test(reqGroups[8])) excludes = extractTags(reqGroups[7]);
     }
 
-    if (/(nie|bez)/i.test(reqGroups[5])) {
+    if (/^(nie|bez)$/i.test(reqGroups[5])) {
         excludes = extractTags(reqGroups[4]);
 
-        if (/(nie|bez)/i.test(reqGroups[8])) excludes = excludes.concat(extractTags(reqGroups[7]));
-        if (/z/i.test(reqGroups[8])) includes = extractTags(reqGroups[7]);
+        if (/^(nie|bez)$/i.test(reqGroups[8])) excludes = excludes.concat(extractTags(reqGroups[7]));
+        if (/^z$/i.test(reqGroups[8])) includes = extractTags(reqGroups[7]);
     }
 
     this.wykop.getTagEntries(tagName, 1)
