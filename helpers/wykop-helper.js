@@ -70,4 +70,4 @@ function prepareEntryBody(body) {
     return parts.join('').trimRight();
 }
 
-module.exports = { extractTags, escapeEntryBody, prepareEntryBody };
+module.exports = { extractTags, prepareEntryTitle, escapeEntryBody, prepareEntryBody };
