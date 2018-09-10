@@ -1,7 +1,7 @@
 const Yeri = require('./yeri');
 
 new Yeri({
-    version: '4.1.6',
+    version: '4.1.7',
     discord: {
         prefixes: ['--', '\u2014'],
         ownerId: '*****************',
