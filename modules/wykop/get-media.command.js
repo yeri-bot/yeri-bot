@@ -42,6 +42,8 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
         entries = entries.filter((entry) => (
             (entry.embed != undefined || !onlyMedia)
             &&
+            (newest || !this.idHistory.hasId(entry.id, guild.id))
+            &&
             !entry.tags.some((tag) => excludes.includes(tag))
             &&
             includes.every((tag) => entry.tags.includes(tag))
@@ -63,26 +65,28 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
 
         if (onlyMedia) {
             res.content.setColor(Command.OK)
-                .setTitle(prepareEntryTitle(entry.tags))    
                 .setAuthor(entry.author, entry.author_avatar_lo, `https://www.wykop.pl/ludzie/${entry.author}/`)
+                .setTitle(prepareEntryTitle(entry.tags))    
                 .setURL(entry.url)
                 .setFooter(`${votes} \u2014 ${time}`);
             res.embed = entry.embed.url;
         }
         else {
             res.content.setColor(Command.OK)
-                .setDescription(prepareEntryBody(entry.body))    
                 .setAuthor(entry.author, entry.author_avatar_lo, `https://www.wykop.pl/ludzie/${entry.author}/`)
                 .setTitle('Zobacz wpis')
                 .setURL(entry.url)
+                .setDescription(prepareEntryBody(entry.body))  
                 .setFooter(`${votes} \u2014 ${time}`);
             if (entry.embed != undefined) res.embed = entry.embed.url;
         }
 
         res.end();
-        
+
+        this.idHistory.addId(entry.id, guild.id);
     })
     .catch((err) => {
+        res.reset();
         res.content.setColor(Command.ERROR)
             .setTitle('Błąd')
             .setDescription('Wystąpił nieoczekiwany błąd poczas pobierania wyników.');
