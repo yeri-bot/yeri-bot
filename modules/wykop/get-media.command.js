@@ -5,7 +5,7 @@ const numeral = require('../../helpers/numeral');
 const { extractTags, prepareEntryTitle, prepareEntryBody } = require('../../helpers/wykop-helper');
 const moment = require('moment-timezone');
 
-let commandPattern = /^((now[aey]|najnowsz[aey]) )?(wpis )?#([a-z0-9]+)( (z|nie|bez)( #[a-z0-9]+)+)?( (z|nie|bez)( #[a-z0-9]+)+)?$/i;
+let commandPattern = /^((now[aey]|najnowsz[aey]) )?(wpis )?# ?([a-z0-9]+)( (z|nie|bez)( # ?[a-z0-9]+)+)?( (z|nie|bez)( # ?[a-z0-9]+)+)?$/i;
 
 module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, function(yeri, res, req, params, author, channel, guild) {
     let reqGroups = new Regex(commandPattern).exec(req.fullCommand);
@@ -17,17 +17,17 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
 
     // ### EXTRACT INCLUDES AND EXCLUDES ###
     if (/^z$/i.test(reqGroups[6])) {
-        includes = extractTags(reqGroups[5]);
+        includes = extractTags(reqGroups[5], true);
 
-        if (/^z$/i.test(reqGroups[9])) includes = includes.concat(extractTags(reqGroups[8]));
-        if (/^(nie|bez)$/i.test(reqGroups[9])) excludes = extractTags(reqGroups[8]);
+        if (/^z$/i.test(reqGroups[9])) includes = includes.concat(extractTags(reqGroups[8], true));
+        if (/^(nie|bez)$/i.test(reqGroups[9])) excludes = extractTags(reqGroups[8], true);
     }
 
     if (/^(nie|bez)$/i.test(reqGroups[6])) {
-        excludes = extractTags(reqGroups[5]);
+        excludes = extractTags(reqGroups[5], true);
 
-        if (/^(nie|bez)$/i.test(reqGroups[9])) excludes = excludes.concat(extractTags(reqGroups[8]));
-        if (/^z$/i.test(reqGroups[9])) includes = extractTags(reqGroups[8]);
+        if (/^(nie|bez)$/i.test(reqGroups[9])) excludes = excludes.concat(extractTags(reqGroups[8], true));
+        if (/^z$/i.test(reqGroups[9])) includes = extractTags(reqGroups[8], true);
     }
 
     // ### GET ENTRIES ###

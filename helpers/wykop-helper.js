@@ -1,6 +1,14 @@
 class WykopHelper {
-    static extractTags(text) {
-        let parser = /#([a-z0-9]+)/ig;
+    static extractTags(text, spaceAfterHashtag = false) {
+        let parser;
+
+        if (spaceAfterHashtag){
+            parser = /# ?([a-z0-9]+)/ig;
+        }
+        else {
+            parser = /#([a-z0-9]+)/ig;
+        }
+
         let tag;
         let tags = new Set();
     
