@@ -14,7 +14,7 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
     let newest = !!(reqGroups[2]);
     let onlyMedia = !(reqGroups[3]);
     let includes = [], excludes = [];
-    let minVotes = reqGroups[12];
+    let minVotes = (reqGroups[12] || 0);
 
     // ### EXTRACT INCLUDES AND EXCLUDES ###
     if (/^z$/i.test(reqGroups[6])) {
