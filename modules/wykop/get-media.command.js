@@ -5,7 +5,7 @@ const numeral = require('../../helpers/numeral');
 const { extractTags, prepareEntryTitle, prepareEntryBody } = require('../../helpers/wykop-helper');
 const moment = require('moment-timezone');
 
-let commandPattern = /^((now[aey]|najnowsz[aey]) )?(wpis )?# ?([a-z0-9]+)( (z|nie|bez)( # ?[a-z0-9]+)+)?( (z|nie|bez)( # ?[a-z0-9]+)+)?$/i;
+let commandPattern = /^((now[aey]|najnowsz[aey]) )?(wpis )?# ?([a-z0-9]+)( (z|nie|bez)( # ?[a-z0-9]+)+)?( (z|nie|bez)( # ?[a-z0-9]+)+)?( \+ ?(\d+))?$/i;
 
 module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, function(yeri, res, req, params, author, channel, guild) {
     let reqGroups = new Regex(commandPattern).exec(req.fullCommand);
@@ -14,6 +14,7 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
     let newest = !!(reqGroups[2]);
     let onlyMedia = !(reqGroups[3]);
     let includes = [], excludes = [];
+    let minVotes = reqGroups[12];
 
     // ### EXTRACT INCLUDES AND EXCLUDES ###
     if (/^z$/i.test(reqGroups[6])) {
@@ -41,6 +42,8 @@ module.exports = new Command(commandPattern, Permissions.EVERYONE, undefined, fu
         // ### FILTER ENTRIES ###
         entries = entries.filter((entry) => (
             (entry.embed != undefined || !onlyMedia)
+            &&
+            (minVotes <= entry.vote_count)
             &&
             (newest || !this.idHistory.hasId(entry.id, guild.id))
             &&
